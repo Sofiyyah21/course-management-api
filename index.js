@@ -1,6 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from './config/db.js'
+import connectDB from './config/db.js';
+import loginRoute from "./routes/loginRoute.js";
+import signupRoute from "./routes/signupRoute.js";
+import testRoutes from "./routes/testRoute.js";
+import courseRoute from "./routes/courseRoute.js";
 
 dotenv.config();
 
@@ -11,7 +15,13 @@ connectDB();
 
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+//Route
+app.use("/", loginRoute);
+app.use("/", signupRoute);
+app.use("/api/test", testRoutes);
+app.use("/api/course", courseRoute);
 // Test route
 app.get("/", (req, res) => {
     res.send("Course Management API is running ");
