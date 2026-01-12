@@ -5,6 +5,7 @@ import loginRoute from "./routes/loginRoute.js";
 import signupRoute from "./routes/signupRoute.js";
 import testRoutes from "./routes/testRoute.js";
 import courseRoute from "./routes/courseRoute.js";
+import enrollmentRoute from "./routes/enrollmentRoute.js";
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use("/", loginRoute);
 app.use("/", signupRoute);
 app.use("/api/test", testRoutes);
 app.use("/api/course", courseRoute);
+app.use("/", enrollmentRoute)
+
 // Test route
 app.get("/", (req, res) => {
     res.send("Course Management API is running ");
