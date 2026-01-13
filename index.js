@@ -5,6 +5,7 @@ import loginRoute from "./routes/loginRoute.js";
 import signupRoute from "./routes/signupRoute.js";
 import testRoutes from "./routes/testRoute.js";
 import courseRoute from "./routes/courseRoute.js";
+import multer from "multer";
 import enrollmentRoute from "./routes/enrollmentRoute.js";
 
 dotenv.config();
@@ -21,8 +22,23 @@ app.use(express.urlencoded({ extended: true }));
 //Route
 app.use("/", loginRoute);
 app.use("/", signupRoute);
+app.use("/uploads", express.static("uploads"));
 app.use("/api/test", testRoutes);
 app.use("/api/course", courseRoute);
+
+// Multer error handler
+app.use((error, req, res, next) => {
+    if (error instanceof multer.MulterError) {
+        return res.static(400).json({
+            message: error.message,
+        })
+    }
+
+    res.status(500).json({
+        message: "Internal Server Error",
+        error: error.message,
+    })
+})
 app.use("/", enrollmentRoute)
 
 // Test route

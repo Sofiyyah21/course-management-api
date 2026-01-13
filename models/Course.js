@@ -24,6 +24,9 @@ const courseSchema = new mongoose.Schema(
             ref: "user"
         },
     ],
+        image: {
+            type: String,
+        },
     },
     {timestamps: true}
 );

@@ -6,10 +6,16 @@ import { updateCourse } from "../controllers/updateController.js";
 import { deleteCourse } from "../controllers/deleteController.js";
 import protect from "../middlewares/authMiddleware.js";
 import authorizeRoles from "../middlewares/roleMiddleware.js";
+import { upload } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 // create course ( admin & instructor only)
-router.post("/create", protect, authorizeRoles("admin", "instructor"), createCourse);
+router.post(
+    "/create", 
+    protect, 
+    authorizeRoles("admin", "instructor"), 
+    upload.single("image"),
+    createCourse);
 
 // get all courses
 router.get("/courses", getCourses);
