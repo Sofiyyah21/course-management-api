@@ -10,6 +10,7 @@ export const createCourse = async (req, res) => {
             description,
             instructor: req.user._id,
             price,
+            image: req.file ? req.file.filename : null,
         });
 
         res.status(201).json({
